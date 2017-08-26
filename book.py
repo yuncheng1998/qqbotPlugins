@@ -2,6 +2,7 @@ import re
 import urllib.request
 
 def book(operate,findbook):
+
 	html = urllib.request.urlopen('http://blog.csdn.net/dd864140130/article/details/54991817').read().decode('utf-8')
 	index = re.findall('<td><ul>([\s\S]*?)</ul></td>',str(html))
 	if operate == 1: # 列出书单
@@ -18,16 +19,19 @@ def book(operate,findbook):
 			if result is not None:
 				booklist.append(book[6])
 		return booklist
+
+
 def onQQMessage(bot, contact, member, content):
-	if re.search('#',content) is not None:
-		if re.search('书单',content) is not None:
+
+	if re.search('#',content) is not None:            # 以 '#' 为调用借书的命令
+		if re.search('书单',content) is not None:	  # 书单 来查书
 			bot.SendTo(contact,str(book(1,None)))
 		if re.search('找书',content) is not None:
 			b = re.findall('%(.*?)%',content)[0]
-			if b is not None:
-				bot.SendTo(contact,str(book(2,b)))	
-			elif b is None:
+			if str(book(2,b)) == '[]':
 				bot.SendTo(contact,'没有')
+			elif b is not None:
+				bot.SendTo(contact,str(book(2,b)))
 
 
 

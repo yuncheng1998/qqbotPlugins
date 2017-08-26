@@ -20,7 +20,7 @@ def onQQMessage(bot, contact, member, content):
 		bot.SendTo(contact,'蛤蛤')
 	elif re.search('我是谁',content) is not None:
 		bot.SendTo(contact,'你是'+str(contact))
-	elif content is not None:
-		if re.search('#',content) is None:
-			r1 = Turning(content)
+	elif re.match('/help',content) is None:
+		if re.search('#',content) is None:   #借书命令
+			r1 = Turning(content)		#调用图灵机器人
 			bot.SendTo(contact,r1)
