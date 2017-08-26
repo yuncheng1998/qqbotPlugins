@@ -9,12 +9,6 @@ def Turning(content):
 	r1 = re.search(r'"text":"([\s\S]*)"',r)
 	return r1.group(1)
 def onQQMessage(bot, contact, member, content):
-	# if content == '你好':
-	# 	bot.SendTo(contact, str(type(contact)))
-	# elif content == '哈哈':
-	# 	bot.SendTo(contact,'呵呵')
-	# elif re.search('年龄',content) is not None:
-	# 	bot.SendTo(contact,'yes'+str(contact))
 	if content == '再见':
 		bot.SendTo(contact, 'close, byebye')
 		bot.Stop()
@@ -27,5 +21,6 @@ def onQQMessage(bot, contact, member, content):
 	elif re.search('我是谁',content) is not None:
 		bot.SendTo(contact,'你是'+str(contact))
 	elif content is not None:
-		r1 = Turning(content)
-		bot.SendTo(contact,r1)
+		if re.search('#',content) is None:
+			r1 = Turning(content)
+			bot.SendTo(contact,r1)
